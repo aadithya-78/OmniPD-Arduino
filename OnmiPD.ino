@@ -91,7 +91,7 @@ void startDrain(){
   delay(100);
   digitalWrite(servo_sw, LOW);
   digitalWrite(ENPin, LOW);
-  digitalWrite(dirPin, HIGH);
+  digitalWrite(dirPin, LOW);
   digitalWrite(mot_pin1, HIGH);
   digitalWrite(mot_pin2, LOW);
   analogWrite(enA, userSpeed);
@@ -107,7 +107,7 @@ void stopDrain(){
 void stericonLock(){
   digitalWrite(servo_sw, HIGH);
   Flow_sw.attach(Flow_pin);
-  Flow_sw.write(0);
+  Flow_sw.write(90);
   delay(300);
   Flow_sw.detach();
   delay(200);
@@ -117,7 +117,7 @@ void stericonLock(){
 void stericonUnlock(){
   digitalWrite(servo_sw, HIGH);
   Flow_sw.attach(Flow_pin);
-  Flow_sw.write(180);
+  Flow_sw.write(0);
   delay(300);
   Flow_sw.detach();
   delay(200);
@@ -227,12 +227,10 @@ void rxCommand() {
         if (idx > 3) userSpeed = cmd[3].toInt();
          startFill();
          Serial1.println("Fill start Command Received");
-         digitalWrite(13,HIGH);
       } 
       else if (cmd[1] == "STOP") {
         stopFill();
         Serial1.println("Fill stop Command Received");
-        digitalWrite(13,LOW);
       }
     } 
 
